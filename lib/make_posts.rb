@@ -12,12 +12,6 @@ class MakePosts
     end
 
      Twitter.update(status)
-
   end
 end
 
-make_posts = MakePosts.new
-make_posts.post_status("Trying passing the status from a method")  
-  
-
- 
