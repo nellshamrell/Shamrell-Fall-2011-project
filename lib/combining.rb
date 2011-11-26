@@ -7,9 +7,18 @@ class Combining
 
   # Find all posts made today that contain the hashtag #dicerollme
   find_posts = FindPosts.new
-  tagged_posts 
+  tagged_posts = find_posts.find_posts 
+  p tagged_posts
+  attributes = Attributes.new 
+  roller = Roller.new
   # For each post get the user name
-  # For each post get the die sides number
-  # For each post make roll
-  # Return a string of @user, your roll is result
+  tagged_posts.each do |post|
+    user_name = attributes.get_user_name(post)
+    die_sides = attributes.get_number_sides(post) 
+    unless die_sides == "invalid"
+      puts "#{user_name} wants to roll a #{die_sides}-sided die"
+      roll = roller.roll(die_sides)
+      puts "@#{user_name} your roll is #{roll}"
+    end
+  end
 end
