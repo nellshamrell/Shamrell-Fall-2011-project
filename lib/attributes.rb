@@ -12,7 +12,7 @@ class Attributes
     post_text = post.text
     first_char = post_text[0]
     
-    die_num_sides = first_char == "d" ? post_text[1].to_i : "invalid"
+    die_num_sides = first_char == "d" ? "#{post_text[1]}#{post_text[2]}".to_i : "invalid"
   end
 
 end

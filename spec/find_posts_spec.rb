@@ -9,15 +9,9 @@ describe FindPosts do
     end
   end
 
-  context "when getting today's date" do
-    it "should get the correct value for today" do
-      finder = FindPosts.new
-      finder.get_today.should == Date.today
+  context "when finding posts" do
+    it "should find the most recent post with the hashtag #dicerollme" do
+
     end
-  end
-
-  context "when the application is searching for posts" do
-    it "should find all posts with the hashtag #dicerollme made today"
-
   end
 end
