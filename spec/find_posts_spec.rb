@@ -1,5 +1,5 @@
 require 'twitter'
-require_relative "../lib/find_posts"
+require_relative '../lib/find_posts'
 
 describe FindPosts do
   context "when connecting to Twitter" do
