@@ -2,8 +2,13 @@
 
 require 'twitter'
 require_relative 'find_posts'
-class Attributes
 
+#
+# Here is one way to make a Singleton class with 'static' methods
+# 
+module Attributes
+  extend self
+  
   def get_user_name(post)
     user_name = post.from_user
   end
