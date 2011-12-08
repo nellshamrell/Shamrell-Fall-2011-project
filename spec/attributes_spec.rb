@@ -2,35 +2,99 @@ require 'twitter'
 require_relative "../lib/attributes"
 
 describe Attributes do
-before (:each) do
-  @sample_post = Twitter::Status.new('from_user' => "dicerollme", 'text' => "d6 #dicerollme")
-  @sample_post2 = Twitter::Status.new('from_user' => "dicerollme", 'text' => "nahnahnah")
-   @sample_post3 = Twitter::Status.new('from_user' => "dicerollme", 'text' => "d20 #dicerollme")
- 
-end
 
-  context "when evaluating a twitter post" do
+  # By default the `subject` of the test will be:
+  # subject { Attributes.new }
+
+  describe "#get_user_name" do
     
-    attributes = Attributes.new
+    # However, you can override it and even have it be the result of a method call...
+    subject { Attributes.new.get_user_name(post) }
+    
+    # This post value is automatically inserted above into the subject
+    let(:post) { Twitter::Status.new 'from_user' => expected_username, 'text' => "d6 #dicerollme" }
+    
+    # This here makes it absolutely clear what you are expecting in the test.
+    let(:expected_username) { "dicerollme" }
+    
+    # This is a shortcut notation for RSpec
+    it { should == expected_username }
 
-    it "should be able to extract the user_name from the post" do    
-      user_name = attributes.get_user_name(@sample_post)
-      user_name.should == "dicerollme"      
-    end
-  
-    it "should return the number of die sides if the first character of the post is 'd'" do
-      die_num_sides = attributes.get_number_sides(@sample_post)
-      die_num_sides.should == 06
-    end
-
-   it "should return a double digit number of die sides if a double digit number is provided" do
-      die_num_sides = attributes.get_number_sides(@sample_post3)
-      die_num_sides.should == 20 
-   end
-
-    it "should return a string of 'invalid' if the first character of the post is not d" do
-      die_num_sides = attributes.get_number_sides(@sample_post2)
-      die_num_sides.should == "invalid"
-    end 
   end
+
+  describe "#get_number_of_sides" do
+
+    subject { Attributes.new.get_number_sides(post) }
+
+    context "when given a single digit side value" do
+
+      let(:post) { Twitter::Status.new('from_user' => "dicerollme", 'text' => "d#{expected_sides} #dicerollme") }
+
+      let(:expected_sides) { 6 }
+      
+      it "should return the correct number of sides" do
+        subject.should == expected_sides
+      end
+      
+    end
+    
+    context "when given a double digit side value" do
+      
+      let(:post) { Twitter::Status.new('from_user' => "dicerollme", 'text' => "d#{expected_sides} #dicerollme") }
+
+      let(:expected_sides) { 20 }
+      
+      it "should return the correct number of sides" do
+        subject.should == expected_sides
+      end
+
+    end
+    
+    context "when given an invalid side value" do
+
+      let(:post) { Twitter::Status.new('from_user' => "dicerollme", 'text' => "nahnahnah") }
+      
+      let(:expected_sides) { "invalid" }
+      
+
+      it "should return that it is not valid" do
+        subject.should == expected_sides
+      end
+
+    end
+
+  end
+
 end
+
+
+
+# Or you can even used shared examples if you had multiple characteristics that
+# you needed to check across various inputs. Look below to see an example.
+shared_examples "a correctly specified die value" do
+  
+  it "should return the correct number of sides" do
+    subject.get_number_sides(post).should == expected_sides
+  end
+
+end
+
+
+describe Attributes do
+  
+  describe "#get_number_of_sides" do
+
+    context "when given a single digit value" do
+      
+      let(:post) { Twitter::Status.new('from_user' => "dicerollme", 'text' => "d#{expected_sides} #dicerollme") }
+      let(:expected_sides) { 20 }
+      
+      it_should_behave_like "a correctly specified die value"
+      
+
+    end
+
+  end
+  
+end
+
