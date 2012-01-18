@@ -1,3 +1,5 @@
+This app, when running, allows anyone with a Twitter account to make a post specifying a number of dice-sides (i.e. D20) and receive a "roll result" back.  
+
 You will also need to get credentials from the Twitter dev website located here https://dev.twitter.com/
 
 You will also need to create a credentials.rb file in your root directory.  For an example, please see the examples given in the readme here https://github.com/jnunemaker/twitter
