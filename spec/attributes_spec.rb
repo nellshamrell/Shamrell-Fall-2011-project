@@ -9,7 +9,7 @@ describe Attributes do
   describe "#get_user_name" do
     
     # However, you can override it and even have it be the result of a method call...
-    subject { Attributes.new.get_user_name(post) }
+    subject { Attributes.get_user_name(post) }
     
     # This post value is automatically inserted above into the subject
     let(:post) { Twitter::Status.new 'from_user' => expected_username, 'text' => "d6 #dicerollme" }
@@ -24,7 +24,7 @@ describe Attributes do
 
   describe "#get_number_of_sides" do
 
-    subject { Attributes.new.get_number_sides(post) }
+    subject { Attributes.get_number_sides(post) }
 
     context "when given a single digit side value" do
 

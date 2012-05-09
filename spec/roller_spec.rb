@@ -1,6 +1,8 @@
 require_relative "../lib/roller"
 
 describe Roller do
+  
+  subject { Roller }
 
   context "when the user provide a number" do
     it "should return a number greater than 0" do
@@ -13,7 +15,7 @@ describe Roller do
 
   describe "#roll" do
     
-    subject { Roller.new.roll(number) }
+    subject { Roller.roll(number) }
     
     let(:number) { 6 }
     
@@ -29,7 +31,7 @@ describe Roller do
   
   describe "#roll" do
 
-    subject { Roller.new.roll(number) }
+    subject { Roller.roll(number) }
     
     let(:number) { 6 }
     
