@@ -4,7 +4,7 @@ require 'twitter'
 class FindPosts
 
   def find_posts
-    tagged_posts = Twitter.search("#dicerollme", :rpp => 1, :result_type => "recent")
+    Twitter.search("#dicerollme", :rpp => 1, :result_type => "recent")
   end
 
 end

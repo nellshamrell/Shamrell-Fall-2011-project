@@ -11,7 +11,7 @@ class MakePosts
       config.oauth_token_secret = credentials.oauth_token_secret
     end
 
-     Twitter.update(status)
+    Twitter.update(status)
   end
 end
 
